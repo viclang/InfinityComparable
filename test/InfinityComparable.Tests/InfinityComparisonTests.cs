@@ -1,14 +1,15 @@
+using LanguageExt;
+
 namespace InifinityComparable.Tests
 {
     public class InfinityComparisonTests
     {
-        private static readonly Infinity<int> positiveInfinity = new Infinity<int>(null, true);
-        private static readonly Infinity<int> negativeInfinity = new Infinity<int>(null, false);
+        private static readonly Infinity<int> positiveInfinity = new Infinity<int>(Option<int>.None, true);
+        private static readonly Infinity<int> negativeInfinity = new Infinity<int>(Option<int>.None, false);
         private static readonly Infinity<int> maxFinite = new Infinity<int>(int.MaxValue, true);
         private static readonly Infinity<int> minFinite = new Infinity<int>(int.MinValue, true);
         private static readonly Infinity<int> negativeMinFinite = new Infinity<int>(int.MinValue, false);
         private static readonly Infinity<int> negativeMaxFinite = new Infinity<int>(int.MaxValue, false);
-
 
         // Arrange
         public static TheoryData<Infinity<int>, Infinity<int>, int> AllCompareToWithExpectedResult =
@@ -78,6 +79,9 @@ namespace InifinityComparable.Tests
         [MemberData(nameof(AllCompareToObjectWithExpectedResult))]
         public void AllEqualsObject_ShouldGiveExpectedResult(Infinity<int> a, object? b, int compareResult)
         {
+
+            string? testing = "";
+            testing.ToOption();
             // Act
             var result = a.Equals(b);
 

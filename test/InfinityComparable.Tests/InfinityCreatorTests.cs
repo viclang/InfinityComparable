@@ -1,10 +1,12 @@
-﻿namespace InifinityComparable.Tests
+﻿using LanguageExt;
+
+namespace InifinityComparable.Tests
 {
     public class InfinityCreatorTests
     {
         private static int? intNull = null;
-        private static Infinity<int> positiveInfinity = new Infinity<int>(null, true);
-        private static Infinity<int> negativeInfinity = new Infinity<int>(null, false);
+        private static Infinity<int> positiveInfinity = new Infinity<int>(Option<int>.None, true);
+        private static Infinity<int> negativeInfinity = new Infinity<int>(Option<int>.None, false);
 
         public static TheoryData<Infinity<int>, Infinity<int>> AllCreatorsShouldBeEqual =
             new TheoryData<Infinity<int>, Infinity<int>>
