@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<version>1.1.5</version>
+		<version>1.0.0</version>
 		<Nullable>enable</Nullable>
-		<id>InfinityComparable</id>
+		<id>InfinityObject</id>
 		<authors>Victor Langemaire</authors>
 		<PackageProjectUrl>https://github.com/viclang/InfinityComparable</PackageProjectUrl>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

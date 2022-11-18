@@ -26,6 +26,11 @@
         [MemberData(nameof(AllCreatorsShouldBeEqual))]
         public void InfinityCreators_ShouldBeExpected(Infinity<int> actual, Infinity<int> expected)
         {
+            var test = new Infinity<DateOnly>();
+            Infinity<int> q = Infinity<int>.PositiveInfinity;
+            double.IsInfinity(q);
+            var a = test - test;
+
             actual.Should().Be(expected);
         }
     }
