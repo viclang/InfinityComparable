@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{552AF8C9-368
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0EE54969-0ED3-4B80-9E9E-5EFDB0866577}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityComparable", "src\InfinityComparable\InfinityComparable.csproj", "{F1E22877-6028-413F-9538-05E8082C94C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityObject", "src\InfinityComparable\InfinityObject.csproj", "{F1E22877-6028-413F-9538-05E8082C94C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityComparable.Tests", "test\InfinityComparable.Tests\InfinityComparable.Tests.csproj", "{FF3A99AE-9506-461C-9244-74A650934239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityObject.Tests", "test\InfinityComparable.Tests\InfinityObject.Tests.csproj", "{FF3A99AE-9506-461C-9244-74A650934239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

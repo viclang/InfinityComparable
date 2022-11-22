@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\InfinityComparable\InfinityComparable.csproj" />
+    <ProjectReference Include="..\..\src\InfinityComparable\InfinityObject.csproj" />
   </ItemGroup>
 
 </Project>

@@ -162,12 +162,13 @@ namespace InfinityComparable
         {
             throw new NotImplementedException();
         }
-        #endregion
-
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+
 
         public string ToString(string? format, IFormatProvider? formatProvider)
         {
@@ -175,7 +176,9 @@ namespace InfinityComparable
         }
 
         public static implicit operator InfinityNumber<T>(ValueTuple<T?, bool> value) => new(value.Item1, value.Item2);
+
         public static implicit operator InfinityNumber<T>(T? value) => new(value, true);
+
         public static implicit operator T?(InfinityNumber<T> value) => value.Finite;
 
         public static bool operator ==(InfinityNumber<T> left, InfinityNumber<T> right) => left.Equals(right);
@@ -190,19 +193,54 @@ namespace InfinityComparable
 
         public static bool operator >=(InfinityNumber<T> left, InfinityNumber<T> right) => left.CompareTo(right) >= 0;
 
-        public static InfinityNumber<T> operator %(InfinityNumber<T> left, InfinityNumber<T> right) => new(left.value % right.value, false);
 
-        public static InfinityNumber<T> operator +(InfinityNumber<T> left, InfinityNumber<T> right) => new(left.value + right.value, false);
+        public static InfinityNumber<T> operator ++(InfinityNumber<T> value)
+            => value + One;
 
-        public static InfinityNumber<T> operator --(InfinityNumber<T> value) => value - One;
+        public static InfinityNumber<T> operator --(InfinityNumber<T> value)
+            => value - One;
 
-        public static InfinityNumber<T> operator /(InfinityNumber<T> left, InfinityNumber<T> right) => new(left.value / right.value, false);
+        public static InfinityNumber<T> operator %(InfinityNumber<T> left, InfinityNumber<T> right)
+            => new(left.value % right.value, false);
 
-        public static InfinityNumber<T> operator ++(InfinityNumber<T> value) => value + One;
+        public static InfinityNumber<T> operator +(InfinityNumber<T> left, InfinityNumber<T> right)
+            => (left.IsInfinity, right.IsInfinity) switch
+            {
+                (false, false) => new(left.value + right.value, false),
+                (true, false) => left,
+                (false, true) => right,
+                (true, true) when left.positive == right.positive => left,
+                (true, true) => throw new NotSupportedException()
+            };
 
-        public static InfinityNumber<T> operator *(InfinityNumber<T> left, InfinityNumber<T> right) => new(left.value * right.value, false);
+        public static InfinityNumber<T> operator -(InfinityNumber<T> left, InfinityNumber<T> right)
+            => (left.IsInfinity, right.IsInfinity) switch
+            {
+                (false, false) => new(left.value - right.value, false),
+                (true, false) => left,
+                (false, true) => right,
+                (true, true) => throw new NotSupportedException()
+            };
 
-        public static InfinityNumber<T> operator -(InfinityNumber<T> left, InfinityNumber<T> right) => new(left.value - right.value, false);
+        public static InfinityNumber<T> operator *(InfinityNumber<T> left, InfinityNumber<T> right)
+            => (left.IsInfinity, right.IsInfinity) switch
+            {
+                (false, false) => new(left.value * right.value, false),
+                (true, false) when right.value != Zero => left,
+                (false, true) when left.value != Zero => right,
+                (true, true) when left.positive == right.positive => PositiveInfinity,
+                (true, true) when left.positive != right.positive => NegativeInfinity,
+                (_, _) => throw new NotSupportedException()
+            };
+
+        public static InfinityNumber<T> operator /(InfinityNumber<T> left, InfinityNumber<T> right)
+            => (left.IsInfinity, right.IsInfinity) switch
+            {
+                (false, false) => new(left.value / right.value, false),
+                (true, false) => PositiveInfinity,
+                (false, true) => Zero,
+                (true, true) => throw new NotSupportedException()
+            };
 
         public static InfinityNumber<T> operator -(InfinityNumber<T> value) => new(value.value, value.IsInfinity, false);
 
@@ -249,12 +287,12 @@ namespace InfinityComparable
 
         static bool INumberBase<InfinityNumber<T>>.TryConvertFromChecked<TOther>(TOther value, out InfinityNumber<T> result)
         {
-            throw new NotImplementedException();
+            return T.TryConvertFromChecked<TOther>(value, out result);
         }
 
         static bool INumberBase<InfinityNumber<T>>.TryConvertFromSaturating<TOther>(TOther value, out InfinityNumber<T> result)
         {
-            throw new NotImplementedException();
+            return !value.IsInfinity && T.TryConvertFromSaturating(value.value, result);
         }
 
         static bool INumberBase<InfinityNumber<T>>.TryConvertFromTruncating<TOther>(TOther value, out InfinityNumber<T> result)

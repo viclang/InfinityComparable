@@ -21,9 +21,9 @@ namespace InfinityComparable
 
         public T? Finite => IsInfinity ? null : value;
 
-        public static IInfinity<T> NegativeInfinity => new Infinity<T>(default, true, false);
+        public static Infinity<T> NegativeInfinity => new Infinity<T>(default, true, false);
 
-        public static IInfinity<T> PositiveInfinity => new Infinity<T>(default, true, true);
+        public static Infinity<T> PositiveInfinity => new Infinity<T>(default, true, true);
 
         public T GetValueOrDefault() => value;
 
